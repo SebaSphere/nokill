@@ -13,5 +13,7 @@ If they accept, PVP will be enabled for both players if disabled alongside a cha
 # Contributing
 This mod is a work in progress, and contributions are welcome. If you would like to contribute, feel free to submit a pull request or create an issue on GitHub.
 
+Be sure to use the gitmoji commit convention when making pull requests, which you can find at https://gitmoji.dev/
+
 # License
 This mod is licensed under the MIT license. See LICENSE for more details.
