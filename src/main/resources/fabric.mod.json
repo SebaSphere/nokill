@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 1,
+  "id": "nokillkillkillkill",
+  "version": "${version}",
+  "name": "nokillkillkillkill",
+  "description": "",
+  "authors": [],
+  "contact": {
+    "repo": ""
+  },
+  "license": "MIT",
+  "icon": "assets/nokillkillkillkill/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "dev.sebastianb.nokillkillkillkill.NoKillKillKillKill"
+    ]
+  },
+  "mixins": [
+    "nokillkillkillkill.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.14.9",
+    "fabric": "*",
+    "fabric-permissions-api-v0": "*",
+    "minecraft": "1.19.4"
+  }
+}
