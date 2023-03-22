@@ -1,0 +1,12 @@
+{
+  "nokillkillkillkill.command.pvp.enabled": "§l§4PvP has been enabled.",
+  "nokillkillkillkill.command.pvp.disabled": "§l§4PvP has been disabled.",
+  "nokillkillkillkill.command.pvp.already_enabled": "§l§4PvP is already enabled.",
+  "nokillkillkillkill.command.pvp.already_disabled": "§l§4PvP is already disabled.",
+  "nokillkillkillkill.command.pvp.status_enabled": "§l§4PvP is currently enabled.",
+  "nokillkillkillkill.command.pvp.status_disabled": "§l§4PvP is currently disabled.",
+  "nokillkillkillkill.command.pvp.challenge.invalid_player": "§l§4Invalid player. Please specify a valid player name.",
+  "nokillkillkillkill.command.pvp.challenge.not_near_player": "§l§4Get within %s blocks of the target player to run this command.",
+  "nokillkillkillkill.command.pvp.challenge.target_player_pvp_enabled": "§l§4PvP has been enabled for %s.",
+  "nokillkillkillkill.command.pvp.challenge.broadcast": "§l§4%s has challenged %s to a fight!"
+}

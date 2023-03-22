@@ -1,8 +1,9 @@
-package dev.sebastianb.nokillkillkillkill.command;
+package dev.sebastianb.nokillkillkillkill.command.challenge;
 
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import com.mojang.brigadier.context.CommandContext;
+import dev.sebastianb.nokillkillkillkill.command.ICommand;
 import net.minecraft.command.argument.EntityArgumentType;
 import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.command.ServerCommandSource;

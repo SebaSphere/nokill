@@ -1,6 +1,7 @@
 package dev.sebastianb.nokillkillkillkill.command;
 
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
+import dev.sebastianb.nokillkillkillkill.command.challenge.ChallengeCommand;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.command.ServerCommandSource;
