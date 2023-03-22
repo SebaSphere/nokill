@@ -6,6 +6,13 @@
   "nokillkillkillkill.command.pvp.status_enabled": "§l§4PvP is currently enabled.",
   "nokillkillkillkill.command.pvp.status_disabled": "§l§4PvP is currently disabled.",
   "nokillkillkillkill.command.pvp.challenge.invalid_player": "§l§4Invalid player. Please specify a valid player name.",
+  "nokillkillkillkill.command.pvp.challenge.invite_player_sent": "§l§4You sent %s a challenge invite.",
+  "nokillkillkillkill.command.pvp.challenge.invite_player_received": "§l§4%s has challenged you. %s",
+  "nokillkillkillkill.command.pvp.challenge.invite_player_received.click_here": "§l§4§nClick here to accept!",
+  "nokillkillkillkill.command.pvp.challenge.command_running": "§l§4You can't run this command with an open challenge invite.",
+  "nokillkillkillkill.command.pvp.challenge.ran_as_self": "§l§4You cannot challenge yourself.",
+  "nokillkillkillkill.command.pvp.challenge.invite_expired_sent": "§l§4The challenge invite you sent %s has expired.",
+  "nokillkillkillkill.command.pvp.challenge.invite_expired_received": "§l§4The challenge invite sent by %s has expired.",
   "nokillkillkillkill.command.pvp.challenge.not_near_player": "§l§4Get within %s blocks of the target player to run this command.",
   "nokillkillkillkill.command.pvp.challenge.target_player_pvp_enabled": "§l§4PvP has been enabled for %s.",
   "nokillkillkillkill.command.pvp.challenge.broadcast": "§l§4%s has challenged %s to a fight!"
