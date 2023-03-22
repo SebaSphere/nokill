@@ -11,12 +11,16 @@ public class NKKKKCommand {
 
     private static final ArrayList<ICommand> commands = new ArrayList<>();
 
-    private static final String[] commandLiterals = new String[]{"pvp", "p", "duel", "d"};
+    private static final String[] commandLiterals = new String[]{"pvp", "p"};
 
 
     public static void register() {
 
         commands.add(new ChallengeCommand());
+
+        commands.add(new PVPStatusCommand());
+        commands.add(new PVPStatusCommand.PVPOnCommand());
+        commands.add(new PVPStatusCommand.PVPOffCommand());
 
         CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> {
             for (ICommand command : commands) {

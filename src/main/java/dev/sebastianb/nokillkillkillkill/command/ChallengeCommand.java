@@ -16,7 +16,7 @@ public class ChallengeCommand implements ICommand {
     @Override
     public LiteralArgumentBuilder<ServerCommandSource> registerNode() {
         return CommandManager.literal(commandName())
-                .then(CommandManager.argument("challenged_player", EntityArgumentType.player())
+                .then(CommandManager.argument("player", EntityArgumentType.player())
                         .executes(ChallengeCommand::challengePlayer));
     }
 
