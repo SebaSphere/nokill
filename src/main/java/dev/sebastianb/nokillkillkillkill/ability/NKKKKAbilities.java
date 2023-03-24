@@ -12,8 +12,8 @@ public class NKKKKAbilities {
 
     public enum Abilities {
 
-        PLAYER_PVP_STATUS_ABILITY("pvp_status", false);
-
+        PLAYER_PVP_STATUS_ABILITY("pvp_status", false),
+        PLAYER_CURRENTLY_CHALLENGING_ABILITY("currently_challenging", false);
 
         private final Identifier abilityIdentifier;
         private final AbilitySource abilitySource;

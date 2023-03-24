@@ -10,6 +10,7 @@ import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
 
+// TODO: prevent any command from running when in challenge mode and message the player saying "You can't do this while challenging another player"
 public class PVPStatusCommand implements ICommand {
 
     @Override
