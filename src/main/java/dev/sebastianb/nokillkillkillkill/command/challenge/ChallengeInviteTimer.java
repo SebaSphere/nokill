@@ -10,7 +10,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 // A thread to check if a player is currently waiting on a challenge invite
 public class ChallengeInviteTimer implements Runnable {
 
-    // made
+    // FIXME: don't make this concurrent or update to a record
     public static volatile ConcurrentHashMap<UUID, UUID> invitedPlayerAndSourcePlayerUUID = new ConcurrentHashMap<>(); // holds player UUID and challenger UUID
 
     private static final ScheduledExecutorService executor = Executors.newSingleThreadScheduledExecutor();
