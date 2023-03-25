@@ -1,9 +1,9 @@
 package dev.sebastianb.nokillkillkillkill.command.challenge;
 
-import java.util.UUID;
+import net.minecraft.server.network.ServerPlayerEntity;
 
-public record PlayerPair(UUID challenger, UUID opponent) {
-    public boolean contains(UUID uuid) {
-        return (uuid.equals(challenger) || uuid.equals(opponent));
+public record PlayerPair(ServerPlayerEntity challenger, ServerPlayerEntity opponent) {
+    public boolean contains(ServerPlayerEntity player) {
+        return (player == challenger || player == opponent);
     }
 }

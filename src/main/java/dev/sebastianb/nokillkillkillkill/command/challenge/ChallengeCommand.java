@@ -15,7 +15,6 @@ import net.minecraft.text.Text;
 
 import java.util.ArrayList;
 import java.util.Optional;
-import java.util.UUID;
 
 public class ChallengeCommand implements ICommand {
 
@@ -24,9 +23,9 @@ public class ChallengeCommand implements ICommand {
     /**
      * Will get the pair this UUID is contained in, optional will be empty if such pair doesn't exist
      */
-    public static Optional<PlayerPair> findInPairs(UUID uuid) {
+    public static Optional<PlayerPair> findInPairs(ServerPlayerEntity player) {
         for (var pair : playerPairs)
-            if (pair.contains(uuid)) return Optional.of(pair);
+            if (pair.contains(player)) return Optional.of(pair);
 
         return Optional.empty();
     }
@@ -34,8 +33,8 @@ public class ChallengeCommand implements ICommand {
     /**
      * Returns true if the given UUID is in any challenge currently (in playerPairs)
      */
-    public static boolean containsInPairs(UUID uuid) {
-        return findInPairs(uuid).isPresent();
+    public static boolean containsInPairs(ServerPlayerEntity player) {
+        return findInPairs(player).isPresent();
     }
 
     @Override
@@ -62,8 +61,8 @@ public class ChallengeCommand implements ICommand {
                 return Command.SINGLE_SUCCESS;
             }
 
-            var isSourceInPair = containsInPairs(sourcePlayer.getUuid());
-            var isChallengedInPair = containsInPairs(challengedPlayer.getUuid());
+            var isSourceInPair = containsInPairs(sourcePlayer);
+            var isChallengedInPair = containsInPairs(challengedPlayer);
 
             if (isSourceInPair) { // source player is already in a challenge
                 SebaUtils.ChatUtils.saySimpleMessage(
@@ -116,7 +115,7 @@ public class ChallengeCommand implements ICommand {
         challengedPlayer.sendMessage(Text.translatable("nokillkillkillkill.command.pvp.challenge.accepted_sent", sourceName));
 
         // add new challenge pair
-        playerPairs.add(new PlayerPair(challengedPlayer.getUuid(), sourcePlayer.getUuid()));
+        playerPairs.add(new PlayerPair(challengedPlayer, sourcePlayer));
 
         // broadcast message to each player saying a duel has started
         // TODO: configurable if this should announce to only the players or everyone
