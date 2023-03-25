@@ -90,7 +90,7 @@ public class ChallengeCommand implements ICommand {
                                     Text.translatable("nokillkillkillkill.command.pvp.challenge.invite_player_received.click_here")
                             )
                     );
-                    ChallengeInviteTimer.runThread(challengedPlayer, sourcePlayer, 30);
+                    ChallengeInviteTimer.runChallengeSchedule(challengedPlayer, sourcePlayer, 30);
                 }
             }
 

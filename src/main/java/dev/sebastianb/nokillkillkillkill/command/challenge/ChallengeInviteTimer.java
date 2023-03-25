@@ -1,6 +1,5 @@
 package dev.sebastianb.nokillkillkillkill.command.challenge;
 
-import com.google.common.util.concurrent.ThreadFactoryBuilder;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
 
@@ -10,19 +9,15 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 // A thread to check if a player is currently waiting on a challenge invite
 public class ChallengeInviteTimer implements Runnable {
+
+    // made
     public static volatile ConcurrentHashMap<UUID, UUID> invitedPlayerAndSourcePlayerUUID = new ConcurrentHashMap<>(); // holds player UUID and challenger UUID
 
-    private final ScheduledExecutorService executor;
+    private static final ScheduledExecutorService executor = Executors.newSingleThreadScheduledExecutor();
 
-    public static void runThread(ServerPlayerEntity invitedPlayer, ServerPlayerEntity challengerPlayer, int maxSecondsAlive) {
-        ThreadFactory namedThreadFactory =
-                new ThreadFactoryBuilder().setNameFormat(invitedPlayer.getUuid() + "-%d").build();
-        // this is probably a very bad idea creating a new thread every player but "lmao" it works
-        ScheduledExecutorService executor = Executors.newScheduledThreadPool(1, namedThreadFactory);
-
+    public static void runChallengeSchedule(ServerPlayerEntity invitedPlayer, ServerPlayerEntity challengerPlayer, int maxSecondsAlive) {
         executor.scheduleAtFixedRate(new ChallengeInviteTimer(invitedPlayer, challengerPlayer, maxSecondsAlive, executor), 0, 1, TimeUnit.SECONDS);
     }
-
 
     private final AtomicInteger secondsAlive;
     private final ServerPlayerEntity invitedPlayer;
@@ -37,7 +32,6 @@ public class ChallengeInviteTimer implements Runnable {
         invitedPlayerUUID = invitedPlayer.getUuid();
         this.challengerPlayerUUID = challengerPlayer.getUuid();
         this.secondsAlive = new AtomicInteger(maxSecondsAlive);
-        this.executor = executor;
         invitedPlayerAndSourcePlayerUUID.putIfAbsent(this.invitedPlayerUUID, this.challengerPlayerUUID);
     }
 
