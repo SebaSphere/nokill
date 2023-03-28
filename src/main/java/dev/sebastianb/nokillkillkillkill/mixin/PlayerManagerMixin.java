@@ -36,7 +36,7 @@ public abstract class PlayerManagerMixin {
 
         // this should call if they left while currently in a match
         if (NKKKKAbilities.Abilities.PLAYER_CURRENTLY_CHALLENGING_ABILITY.getAbilityState(player)) {
-            player.sendMessage(Text.translatable("nokillkillkillkill.command.pvp.left_mid_match"));
+            player.sendMessage(Text.translatable("nokillkillkillkill.command.pvp.challenge.you_disconnected"));
         }
 
         // everytime a player connects, they should be set to not in a challenge state if they disconnect while in challenge mode
@@ -57,8 +57,7 @@ public abstract class PlayerManagerMixin {
         ChallengeCommand.challenges.remove(pair);
 
         // broadcast message with the player that left and who won by default
-        var msg = String.format("You win by default! " + player.getName() + " has left.");
-        other.sendMessage(Text.literal(msg));
+        other.sendMessage(Text.translatable("nokillkillkillkill.command.pvp.challenge.other_disconnected", player.getName()));
     }
 
 }

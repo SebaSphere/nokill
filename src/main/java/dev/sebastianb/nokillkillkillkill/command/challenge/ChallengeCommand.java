@@ -35,7 +35,7 @@ public class ChallengeCommand implements ICommand {
             ServerPlayerEntity challengedPlayer = EntityArgumentType.getPlayer(context, "player");
 
             if (sourcePlayer == null) { // sent by server (I think?)
-                context.getSource().sendMessage(Text.literal("Please execute this command as a player"));
+                context.getSource().sendMessage(Text.translatable("nokillkillkillkill.command.pvp.no_source_player"));
             } else if (sourcePlayer.equals(challengedPlayer)) { // prevent player challenging themselves
                 SebaUtils.ChatUtils.saySimpleMessage(context, Text.translatable("nokillkillkillkill.command.pvp.challenge.ran_as_self"));
             } else if (challenges.contains(sourcePlayer)) { // source player is already in a duel
