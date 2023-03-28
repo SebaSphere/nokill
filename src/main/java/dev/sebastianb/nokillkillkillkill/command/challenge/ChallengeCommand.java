@@ -88,7 +88,7 @@ public class ChallengeCommand implements ICommand {
                         Text.translatable("nokillkillkillkill.command.pvp.challenge.invite_player_received.click_here")
                 )
         );
-        ChallengeInviteTimer.createInvite(sourcePlayer, challengedPlayer, 30);
+        ChallengeInviteTimer.createInvite(sourcePlayer, challengedPlayer);
     }
 
     private static void acceptChallenge(CommandContext<ServerCommandSource> context, PlayerPair pair) {

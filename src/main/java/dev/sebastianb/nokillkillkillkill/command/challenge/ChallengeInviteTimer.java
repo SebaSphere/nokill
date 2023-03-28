@@ -21,8 +21,8 @@ public final class ChallengeInviteTimer {
         }, 0, 1000); // 1,000 ms
     }
 
-    public static void createInvite(ServerPlayerEntity from, ServerPlayerEntity to, int seconds) {
-        playerInvites.add(InvitePair.of(from, to, seconds));
+    public static void createInvite(ServerPlayerEntity from, ServerPlayerEntity to) {
+        playerInvites.add(new InvitePair(new PlayerPair(from, to)));
     }
 
     private static void progressInviteTimers() {
