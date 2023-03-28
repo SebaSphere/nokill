@@ -36,8 +36,9 @@ public abstract class PlayerManagerMixin {
 
         // this should call if they left while currently in a match
         if (NKKKKAbilities.Abilities.PLAYER_CURRENTLY_CHALLENGING_ABILITY.getAbilityState(player)) {
-            // TODO: let player know they left while in a match
+            player.sendMessage(Text.translatable("nokillkillkillkill.command.pvp.left_mid_match"));
         }
+
         // everytime a player connects, they should be set to not in a challenge state if they disconnect while in challenge mode
         NKKKKAbilities.Abilities.PLAYER_CURRENTLY_CHALLENGING_ABILITY.setAbilityState(player, false);
     }

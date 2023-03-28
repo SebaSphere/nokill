@@ -20,5 +20,6 @@
   "nokillkillkillkill.command.pvp.challenge.not_near_player": "§l§4Get within %s blocks of the target player to run this command.",
   "nokillkillkillkill.command.pvp.challenge.target_player_pvp_enabled": "§l§4PvP has been enabled for %s.",
   "nokillkillkillkill.command.pvp.challenge.broadcast": "§l§4%s has challenged %s to a fight!",
-  "nokillkillkillkill.command.pvp.temp_enabled": "§l§4PvP has been temporally enabled."
+  "nokillkillkillkill.command.pvp.temp_enabled": "§l§4PvP has been temporally enabled.",
+  "nokillkillkillkill.command.pvp.left_mid_match": "§l§4You left during a match! Your opponent won by default."
 }
