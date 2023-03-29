@@ -64,6 +64,7 @@ public abstract class ServerPlayerEntityMixin {
 
         // broadcast who won the duel
         for (var p : player.server.getPlayerManager().getPlayerList())  {
+            if (pair.contains(p)) continue;
             p.sendMessage(Text.translatable("nokill.command.pvp.challenge.broadcast_win", winner.getName(), player.getName()));
         }
 

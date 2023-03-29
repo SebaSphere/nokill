@@ -104,9 +104,12 @@ public class ChallengeCommand implements ICommand {
         // broadcast message to each player saying a duel has started
         // TODO: configurable if this should announce to only the players or everyone
         var server = context.getSource().getServer();
-        server.getPlayerManager()
-                .getPlayerList()
-                .forEach(player -> player.sendMessage(Text.translatable("nokill.command.pvp.challenge.broadcast", challengerName, opponentName)));
+
+        // broadcast to everyone out of the challenge (since they get their own messages above)
+        for (var p : server.getPlayerManager().getPlayerList())  {
+            if (pair.contains(p)) continue;
+            p.sendMessage(Text.translatable("nokill.command.pvp.challenge.broadcast", challengerName, opponentName));
+        }
 
         setPVPStates(pair);
     }
