@@ -85,9 +85,11 @@ public class ChallengeCommand implements ICommand {
         // TODO: make command clickable and display a hover text with the command
         challengedPlayer.sendMessage(
                 Text.translatable("nokill.command.pvp.challenge.invite_player_received", sourcePlayer.getName(),
-                        Text.translatable("nokill.command.pvp.challenge.invite_player_received.click_here")
-                )
+                        Text.translatable("nokill.command.pvp.challenge.invite_player_received.click_here"))
         );
+        // let player know how to accept
+        challengedPlayer.sendMessage(Text.translatable("nokill.command.pvp.challenge.invite_response_info"));
+
         ChallengeInviteTimer.createInvite(sourcePlayer, challengedPlayer);
     }
 
