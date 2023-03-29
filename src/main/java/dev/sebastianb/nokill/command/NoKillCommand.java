@@ -1,14 +1,14 @@
-package dev.sebastianb.nokillkillkillkill.command;
+package dev.sebastianb.nokill.command;
 
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
-import dev.sebastianb.nokillkillkillkill.command.challenge.ChallengeCommand;
+import dev.sebastianb.nokill.command.challenge.ChallengeCommand;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.command.ServerCommandSource;
 
 import java.util.ArrayList;
 
-public class NKKKKCommand {
+public class NoKillCommand {
 
     private static final ArrayList<ICommand> commands = new ArrayList<>();
 

@@ -1,4 +1,4 @@
-package dev.sebastianb.nokillkillkillkill.command.challenge;
+package dev.sebastianb.nokill.command.challenge;
 
 import net.minecraft.server.network.ServerPlayerEntity;
 

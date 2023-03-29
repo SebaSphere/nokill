@@ -1,7 +1,7 @@
-package dev.sebastianb.nokillkillkillkill.command.challenge;
+package dev.sebastianb.nokill.command.challenge;
 
-import dev.sebastianb.nokillkillkillkill.command.challenge.pairstructs.InvitePair;
-import dev.sebastianb.nokillkillkillkill.command.challenge.pairstructs.PlayerInviteList;
+import dev.sebastianb.nokill.command.challenge.pairstructs.InvitePair;
+import dev.sebastianb.nokill.command.challenge.pairstructs.PlayerInviteList;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
 
@@ -35,11 +35,11 @@ public final class ChallengeInviteTimer {
                 playerInvites.remove(invite);
 
                 invite.pair.challenger().sendMessage(Text.translatable(
-                        "nokillkillkillkill.command.pvp.challenge.invite_expired_sent",
+                        "nokill.command.pvp.challenge.invite_expired_sent",
                         invite.pair.opponent().getName()
                 ), false);
                 invite.pair.opponent().sendMessage(Text.translatable(
-                        "nokillkillkillkill.command.pvp.challenge.invite_expired_received",
+                        "nokill.command.pvp.challenge.invite_expired_received",
                         invite.pair.challenger().getName()
                 ), false);
             }

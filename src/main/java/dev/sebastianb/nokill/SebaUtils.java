@@ -1,4 +1,4 @@
-package dev.sebastianb.nokillkillkillkill;
+package dev.sebastianb.nokill;
 
 import com.mojang.brigadier.context.CommandContext;
 import net.minecraft.server.command.ServerCommandSource;

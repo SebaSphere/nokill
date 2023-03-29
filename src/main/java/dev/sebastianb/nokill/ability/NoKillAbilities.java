@@ -1,14 +1,12 @@
-package dev.sebastianb.nokillkillkillkill.ability;
+package dev.sebastianb.nokill.ability;
 
-import dev.sebastianb.nokillkillkillkill.NoKillKillKillKill;
 import io.github.ladysnake.pal.*;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.Identifier;
 
 import java.util.Arrays;
-import java.util.logging.Level;
 
-public class NKKKKAbilities {
+public class NoKillAbilities {
 
     public enum Abilities {
 
@@ -20,7 +18,7 @@ public class NKKKKAbilities {
         private final PlayerAbility playerAbility;
 
         Abilities(String abilityID, boolean isUpdatedCallback) {
-            this.abilityIdentifier = new Identifier("nokillkillkillkill", abilityID);
+            this.abilityIdentifier = new Identifier("nokill", abilityID);
             this.abilitySource = Pal.getAbilitySource(abilityIdentifier);
             this.playerAbility = Pal.registerAbility(abilityIdentifier, SimpleAbilityTracker::new);
 

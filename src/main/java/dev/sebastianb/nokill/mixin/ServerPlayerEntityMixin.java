@@ -1,8 +1,7 @@
-package dev.sebastianb.nokillkillkillkill.mixin;
+package dev.sebastianb.nokill.mixin;
 
-
-import dev.sebastianb.nokillkillkillkill.ability.NKKKKAbilities;
-import dev.sebastianb.nokillkillkillkill.command.challenge.ChallengeCommand;
+import dev.sebastianb.nokill.ability.NoKillAbilities;
+import dev.sebastianb.nokill.command.challenge.ChallengeCommand;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -26,11 +25,11 @@ public abstract class ServerPlayerEntityMixin {
         boolean isVictimPvpEnabled = false;
         boolean isAttackerPvpEnabled = false;
 
-        boolean isVictimPvpAbilityEnabled = NKKKKAbilities.Abilities.PLAYER_PVP_STATUS_ABILITY.getAbilityState((ServerPlayerEntity)(Object)this);
-        boolean isAttackerPvpAbilityEnabled = NKKKKAbilities.Abilities.PLAYER_PVP_STATUS_ABILITY.getAbilityState(attacker);
+        boolean isVictimPvpAbilityEnabled = NoKillAbilities.Abilities.PLAYER_PVP_STATUS_ABILITY.getAbilityState((ServerPlayerEntity)(Object)this);
+        boolean isAttackerPvpAbilityEnabled = NoKillAbilities.Abilities.PLAYER_PVP_STATUS_ABILITY.getAbilityState(attacker);
 
-        boolean isVictimChallengeAbilityEnabled = NKKKKAbilities.Abilities.PLAYER_CURRENTLY_CHALLENGING_ABILITY.getAbilityState((ServerPlayerEntity)(Object)this);
-        boolean isAttackerChallengeAbilityEnabled = NKKKKAbilities.Abilities.PLAYER_CURRENTLY_CHALLENGING_ABILITY.getAbilityState(attacker);
+        boolean isVictimChallengeAbilityEnabled = NoKillAbilities.Abilities.PLAYER_CURRENTLY_CHALLENGING_ABILITY.getAbilityState((ServerPlayerEntity)(Object)this);
+        boolean isAttackerChallengeAbilityEnabled = NoKillAbilities.Abilities.PLAYER_CURRENTLY_CHALLENGING_ABILITY.getAbilityState(attacker);
 
         if (isVictimPvpAbilityEnabled && isAttackerPvpAbilityEnabled) {
             isVictimPvpEnabled = true;
@@ -60,15 +59,15 @@ public abstract class ServerPlayerEntityMixin {
         var winner = player == pair.challenger() ? pair.opponent() : pair.challenger();
         ChallengeCommand.challenges.remove(pair);
 
-        NKKKKAbilities.Abilities.PLAYER_CURRENTLY_CHALLENGING_ABILITY.setAbilityState(pair.challenger(), false);
-        NKKKKAbilities.Abilities.PLAYER_CURRENTLY_CHALLENGING_ABILITY.setAbilityState(pair.opponent(), false);
+        NoKillAbilities.Abilities.PLAYER_CURRENTLY_CHALLENGING_ABILITY.setAbilityState(pair.challenger(), false);
+        NoKillAbilities.Abilities.PLAYER_CURRENTLY_CHALLENGING_ABILITY.setAbilityState(pair.opponent(), false);
 
         // broadcast who won the duel
         for (var p : player.server.getPlayerManager().getPlayerList())  {
-            p.sendMessage(Text.translatable("nokillkillkillkill.command.pvp.challenge.broadcast_win", winner.getName(), player.getName()));
+            p.sendMessage(Text.translatable("nokill.command.pvp.challenge.broadcast_win", winner.getName(), player.getName()));
         }
 
-        player.sendMessage(Text.translatable("nokillkillkillkill.command.pvp.challenge.lost", winner.getName()));
-        winner.sendMessage(Text.translatable("nokillkillkillkill.command.pvp.challenge.won", player.getName()));
+        player.sendMessage(Text.translatable("nokill.command.pvp.challenge.lost", winner.getName()));
+        winner.sendMessage(Text.translatable("nokill.command.pvp.challenge.won", player.getName()));
     }
 }

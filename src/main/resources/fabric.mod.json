@@ -1,23 +1,23 @@
 {
   "schemaVersion": 1,
-  "id": "nokillkillkillkill",
+  "id": "nokill",
   "version": "${version}",
-  "name": "nokillkillkillkill",
+  "name": "nokill",
   "description": "",
   "authors": [],
   "contact": {
     "repo": ""
   },
   "license": "MIT",
-  "icon": "assets/nokillkillkillkill/icon.png",
+  "icon": "assets/nokill/icon.png",
   "environment": "*",
   "entrypoints": {
     "main": [
-      "dev.sebastianb.nokillkillkillkill.NoKillKillKillKill"
+      "dev.sebastianb.nokill.NoKill"
     ]
   },
   "mixins": [
-    "nokillkillkillkill.mixins.json"
+    "nokill.mixins.json"
   ],
   "depends": {
     "fabricloader": ">=0.14.9",

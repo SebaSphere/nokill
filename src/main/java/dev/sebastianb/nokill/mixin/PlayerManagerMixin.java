@@ -1,8 +1,8 @@
-package dev.sebastianb.nokillkillkillkill.mixin;
+package dev.sebastianb.nokill.mixin;
 
 
-import dev.sebastianb.nokillkillkillkill.ability.NKKKKAbilities;
-import dev.sebastianb.nokillkillkillkill.command.challenge.ChallengeCommand;
+import dev.sebastianb.nokill.ability.NoKillAbilities;
+import dev.sebastianb.nokill.command.challenge.ChallengeCommand;
 import net.minecraft.network.ClientConnection;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.PlayerManager;
@@ -27,20 +27,20 @@ public abstract class PlayerManagerMixin {
             boolean serverPVPStatus = getServer().isPvpEnabled();
 
             // set if player can pvp based on what the server.properties says for first join
-            NKKKKAbilities.Abilities.PLAYER_PVP_STATUS_ABILITY.setAbilityState(player, serverPVPStatus);
+            NoKillAbilities.Abilities.PLAYER_PVP_STATUS_ABILITY.setAbilityState(player, serverPVPStatus);
             // they shouldn't be challenging a player when first joining to set to false by default
-            NKKKKAbilities.Abilities.PLAYER_CURRENTLY_CHALLENGING_ABILITY.setAbilityState(player, false);
+            NoKillAbilities.Abilities.PLAYER_CURRENTLY_CHALLENGING_ABILITY.setAbilityState(player, false);
 
             // TODO: make configurable and optional message to send player a message that says "PVP is enabled or disabled" for first join
         }
 
         // this should call if they left while currently in a match
-        if (NKKKKAbilities.Abilities.PLAYER_CURRENTLY_CHALLENGING_ABILITY.getAbilityState(player)) {
-            player.sendMessage(Text.translatable("nokillkillkillkill.command.pvp.challenge.you_disconnected"));
+        if (NoKillAbilities.Abilities.PLAYER_CURRENTLY_CHALLENGING_ABILITY.getAbilityState(player)) {
+            player.sendMessage(Text.translatable("nokill.command.pvp.challenge.you_disconnected"));
         }
 
         // everytime a player connects, they should be set to not in a challenge state if they disconnect while in challenge mode
-        NKKKKAbilities.Abilities.PLAYER_CURRENTLY_CHALLENGING_ABILITY.setAbilityState(player, false);
+        NoKillAbilities.Abilities.PLAYER_CURRENTLY_CHALLENGING_ABILITY.setAbilityState(player, false);
     }
 
     // I think this is the disconnect method, seems to call when a player disconnects
@@ -53,11 +53,11 @@ public abstract class PlayerManagerMixin {
         var other = player == pair.challenger() ? pair.opponent() : pair.challenger(); // other player
 
         // end the challenge state of the player that didn't leave, and remove pair from challenges
-        NKKKKAbilities.Abilities.PLAYER_CURRENTLY_CHALLENGING_ABILITY.setAbilityState(other, false);
+        NoKillAbilities.Abilities.PLAYER_CURRENTLY_CHALLENGING_ABILITY.setAbilityState(other, false);
         ChallengeCommand.challenges.remove(pair);
 
         // broadcast message with the player that left and who won by default
-        other.sendMessage(Text.translatable("nokillkillkillkill.command.pvp.challenge.other_disconnected", player.getName()));
+        other.sendMessage(Text.translatable("nokill.command.pvp.challenge.other_disconnected", player.getName()));
     }
 
 }
