@@ -88,7 +88,7 @@ public class ChallengeCommand implements ICommand {
                         Text.translatable("nokill.command.pvp.challenge.invite_player_received.click_here"))
         );
         // let player know how to accept
-        challengedPlayer.sendMessage(Text.translatable("nokill.command.pvp.challenge.invite_response_info"));
+        challengedPlayer.sendMessage(Text.translatable("nokill.command.pvp.challenge.invite_response_info", sourcePlayer.getName()));
 
         ChallengeInviteTimer.createInvite(sourcePlayer, challengedPlayer);
     }
