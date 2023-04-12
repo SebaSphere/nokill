@@ -1,6 +1,6 @@
-package dev.sebastianb.nokillkillkillkill.command.challenge.pairstructs;
+package dev.sebastianb.nokill.command.challenge.pairstructs;
 
-import dev.sebastianb.nokillkillkillkill.command.challenge.PlayerPair;
+import dev.sebastianb.nokill.command.challenge.PlayerPair;
 import net.minecraft.server.network.ServerPlayerEntity;
 
 import java.util.ArrayList;

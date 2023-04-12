@@ -1,10 +1,10 @@
-package dev.sebastianb.nokillkillkillkill.command;
+package dev.sebastianb.nokill.command;
 
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import com.mojang.brigadier.context.CommandContext;
-import dev.sebastianb.nokillkillkillkill.SebaUtils;
-import dev.sebastianb.nokillkillkillkill.ability.NKKKKAbilities;
+import dev.sebastianb.nokill.SebaUtils;
+import dev.sebastianb.nokill.ability.NoKillAbilities;
 import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -26,12 +26,12 @@ public class PVPStatusCommand implements ICommand {
 
     private int execute(CommandContext<ServerCommandSource> context) {
         ServerPlayerEntity player = context.getSource().getPlayer();
-        boolean playerPVPStatus = NKKKKAbilities.Abilities.PLAYER_PVP_STATUS_ABILITY.getAbilityState(player);
+        boolean playerPVPStatus = NoKillAbilities.Abilities.PLAYER_PVP_STATUS_ABILITY.getAbilityState(player);
 
         if (playerPVPStatus) {
-            SebaUtils.ChatUtils.saySimpleMessage(context, Text.translatable("nokillkillkillkill.command.pvp.status_enabled"));
+            SebaUtils.ChatUtils.saySimpleMessage(context, Text.translatable("nokill.command.pvp.status_enabled"));
         } else {
-            SebaUtils.ChatUtils.saySimpleMessage(context, Text.translatable("nokillkillkillkill.command.pvp.status_disabled"));
+            SebaUtils.ChatUtils.saySimpleMessage(context, Text.translatable("nokill.command.pvp.status_disabled"));
         }
         return Command.SINGLE_SUCCESS;
     }
@@ -51,15 +51,15 @@ public class PVPStatusCommand implements ICommand {
 
         private int execute(CommandContext<ServerCommandSource> context) {
             ServerPlayerEntity player = context.getSource().getPlayer();
-            boolean playerPVPStatus = NKKKKAbilities.Abilities.PLAYER_PVP_STATUS_ABILITY.getAbilityState(player);
+            boolean playerPVPStatus = NoKillAbilities.Abilities.PLAYER_PVP_STATUS_ABILITY.getAbilityState(player);
 
             if (!playerPVPStatus) {
-                SebaUtils.ChatUtils.saySimpleMessage(context, Text.translatable("nokillkillkillkill.command.pvp.enabled"));
+                SebaUtils.ChatUtils.saySimpleMessage(context, Text.translatable("nokill.command.pvp.enabled"));
             } else {
-                SebaUtils.ChatUtils.saySimpleMessage(context, Text.translatable("nokillkillkillkill.command.pvp.already_enabled"));
+                SebaUtils.ChatUtils.saySimpleMessage(context, Text.translatable("nokill.command.pvp.already_enabled"));
             }
 
-            NKKKKAbilities.Abilities.PLAYER_PVP_STATUS_ABILITY.setAbilityState(player, true);
+            NoKillAbilities.Abilities.PLAYER_PVP_STATUS_ABILITY.setAbilityState(player, true);
             return Command.SINGLE_SUCCESS;
         }
 
@@ -80,15 +80,15 @@ public class PVPStatusCommand implements ICommand {
 
         private int execute(CommandContext<ServerCommandSource> context) {
             ServerPlayerEntity player = context.getSource().getPlayer();
-            boolean playerPVPStatus = NKKKKAbilities.Abilities.PLAYER_PVP_STATUS_ABILITY.getAbilityState(player);
+            boolean playerPVPStatus = NoKillAbilities.Abilities.PLAYER_PVP_STATUS_ABILITY.getAbilityState(player);
 
             if (playerPVPStatus) {
-                SebaUtils.ChatUtils.saySimpleMessage(context, Text.translatable("nokillkillkillkill.command.pvp.disabled"));
+                SebaUtils.ChatUtils.saySimpleMessage(context, Text.translatable("nokill.command.pvp.disabled"));
             } else {
-                SebaUtils.ChatUtils.saySimpleMessage(context, Text.translatable("nokillkillkillkill.command.pvp.already_disabled"));
+                SebaUtils.ChatUtils.saySimpleMessage(context, Text.translatable("nokill.command.pvp.already_disabled"));
             }
 
-            NKKKKAbilities.Abilities.PLAYER_PVP_STATUS_ABILITY.setAbilityState(player, false);
+            NoKillAbilities.Abilities.PLAYER_PVP_STATUS_ABILITY.setAbilityState(player, false);
             return Command.SINGLE_SUCCESS;
         }
 
