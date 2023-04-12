@@ -2,11 +2,13 @@ package dev.sebastianb.nokillkillkillkill.mixin;
 
 
 import dev.sebastianb.nokillkillkillkill.ability.NKKKKAbilities;
+import dev.sebastianb.nokillkillkillkill.command.challenge.ChallengeCommand;
 import net.minecraft.network.ClientConnection;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.PlayerManager;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.stat.Stats;
+import net.minecraft.text.Text;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -34,9 +36,9 @@ public abstract class PlayerManagerMixin {
 
         // this should call if they left while currently in a match
         if (NKKKKAbilities.Abilities.PLAYER_CURRENTLY_CHALLENGING_ABILITY.getAbilityState(player)) {
-            // TODO: let player know they left while in a match
-
+            player.sendMessage(Text.translatable("nokillkillkillkill.command.pvp.challenge.you_disconnected"));
         }
+
         // everytime a player connects, they should be set to not in a challenge state if they disconnect while in challenge mode
         NKKKKAbilities.Abilities.PLAYER_CURRENTLY_CHALLENGING_ABILITY.setAbilityState(player, false);
     }
@@ -44,10 +46,18 @@ public abstract class PlayerManagerMixin {
     // I think this is the disconnect method, seems to call when a player disconnects
     @Inject(at = @At(value = "TAIL"), method = "remove")
     private void onPlayerDisconnect(ServerPlayerEntity player, CallbackInfo ci) {
-        // TODO: have a condition to check if the player is even in the hashmap
-        // TODO: end the challenge state of the player that didn't leave and get rid of both from the challenge hashmap
-        // TODO: broadcast message with the player that left and who won by default
+        var maybePair = ChallengeCommand.challenges.find(player);
+        if (maybePair.isEmpty()) return; // no challenge contains this player
 
+        var pair = maybePair.get();
+        var other = player == pair.challenger() ? pair.opponent() : pair.challenger(); // other player
+
+        // end the challenge state of the player that didn't leave, and remove pair from challenges
+        NKKKKAbilities.Abilities.PLAYER_CURRENTLY_CHALLENGING_ABILITY.setAbilityState(other, false);
+        ChallengeCommand.challenges.remove(pair);
+
+        // broadcast message with the player that left and who won by default
+        other.sendMessage(Text.translatable("nokillkillkillkill.command.pvp.challenge.other_disconnected", player.getName()));
     }
 
 }

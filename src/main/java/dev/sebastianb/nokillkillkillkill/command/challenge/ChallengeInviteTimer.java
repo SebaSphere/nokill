@@ -1,57 +1,50 @@
 package dev.sebastianb.nokillkillkillkill.command.challenge;
 
+import dev.sebastianb.nokillkillkillkill.command.challenge.pairstructs.InvitePair;
+import dev.sebastianb.nokillkillkillkill.command.challenge.pairstructs.PlayerInviteList;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
 
-import java.util.UUID;
-import java.util.concurrent.*;
-import java.util.concurrent.atomic.AtomicInteger;
+import java.util.Timer;
+import java.util.TimerTask;
 
-// A thread to check if a player is currently waiting on a challenge invite
-public class ChallengeInviteTimer implements Runnable {
+public final class ChallengeInviteTimer {
+    private static final Timer timer = new Timer();
+    public static final PlayerInviteList playerInvites = new PlayerInviteList();
 
-    // FIXME: don't make this concurrent or update to a record
-    public static volatile ConcurrentHashMap<UUID, UUID> invitedPlayerAndSourcePlayerUUID = new ConcurrentHashMap<>(); // holds player UUID and challenger UUID
-
-    private static final ScheduledExecutorService executor = Executors.newSingleThreadScheduledExecutor();
-
-    public static void runChallengeSchedule(ServerPlayerEntity invitedPlayer, ServerPlayerEntity challengerPlayer, int maxSecondsAlive) {
-        executor.scheduleAtFixedRate(new ChallengeInviteTimer(invitedPlayer, challengerPlayer, maxSecondsAlive, executor), 0, 1, TimeUnit.SECONDS);
+    static {
+        timer.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                progressInviteTimers();
+            }
+        }, 0, 1000); // 1,000 ms
     }
 
-    private final AtomicInteger secondsAlive;
-    private final ServerPlayerEntity invitedPlayer;
-
-    private final ServerPlayerEntity challengerPlayer;
-    private final UUID invitedPlayerUUID;
-    private final UUID challengerPlayerUUID;
-
-    public ChallengeInviteTimer(ServerPlayerEntity invitedPlayer, ServerPlayerEntity challengerPlayer, int maxSecondsAlive, ScheduledExecutorService executor) {
-        this.invitedPlayer = invitedPlayer;
-        this.challengerPlayer = challengerPlayer;
-        invitedPlayerUUID = invitedPlayer.getUuid();
-        this.challengerPlayerUUID = challengerPlayer.getUuid();
-        this.secondsAlive = new AtomicInteger(maxSecondsAlive);
-        invitedPlayerAndSourcePlayerUUID.putIfAbsent(this.invitedPlayerUUID, this.challengerPlayerUUID);
+    public static void createInvite(ServerPlayerEntity from, ServerPlayerEntity to) {
+        playerInvites.add(new InvitePair(new PlayerPair(from, to)));
     }
 
-    @Override
-    public synchronized void run() {
-        if (!invitedPlayerAndSourcePlayerUUID.containsKey(invitedPlayer.getUuid())) {
-            executor.shutdown();
-            return;
+    private static void progressInviteTimers() {
+        for (var invite : playerInvites) {
+            invite.secondsLeft -= 1;
+
+            invite.pair.opponent().sendMessage(Text.literal(String.valueOf(invite.secondsLeft)), false);
+
+            if (invite.secondsLeft <= 0) {
+                playerInvites.remove(invite);
+
+                invite.pair.challenger().sendMessage(Text.translatable(
+                        "nokillkillkillkill.command.pvp.challenge.invite_expired_sent",
+                        invite.pair.opponent().getName()
+                ), false);
+                invite.pair.opponent().sendMessage(Text.translatable(
+                        "nokillkillkillkill.command.pvp.challenge.invite_expired_received",
+                        invite.pair.challenger().getName()
+                ), false);
+            }
         }
-
-        // TODO: make this display 15, 10, 5, 3, 2, 1 then expire. Also make it pretty + use a translatable
-        invitedPlayer.sendMessage(Text.literal(secondsAlive.toString()), false);
-
-        if (secondsAlive.decrementAndGet() < 0) {
-            invitedPlayer.sendMessage(Text.translatable("nokillkillkillkill.command.pvp.challenge.invite_expired_received", challengerPlayer.getName()), false);
-            challengerPlayer.sendMessage(Text.translatable("nokillkillkillkill.command.pvp.challenge.invite_expired_sent", invitedPlayer.getName()), false);
-            invitedPlayerAndSourcePlayerUUID.remove(invitedPlayerUUID);
-            executor.shutdown();
-        }
-
     }
 
+    private ChallengeInviteTimer() {}
 }
