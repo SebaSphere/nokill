@@ -2,11 +2,12 @@ package dev.sebastianb.nokillkillkillkill.mixin;
 
 
 import dev.sebastianb.nokillkillkillkill.ability.NKKKKAbilities;
+import dev.sebastianb.nokillkillkillkill.command.challenge.ChallengeCommand;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.text.Text;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -14,7 +15,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(ServerPlayerEntity.class)
 public abstract class ServerPlayerEntityMixin {
-
     // taken from https://github.com/eliskvitka/toggle-pvp/blob/master/src/main/java/me/braunly/togglepvp/mixin/ServerPlayerEntityMixin.java
     @Inject(at = @At("HEAD"), method = "shouldDamagePlayer", cancellable = true)
     private void shouldDamagePlayer(PlayerEntity attacker, CallbackInfoReturnable<Boolean> cir) {
@@ -46,8 +46,29 @@ public abstract class ServerPlayerEntityMixin {
 
     @Inject(at = @At("HEAD"), method = "onDeath", cancellable = true)
     private void onDeath(DamageSource damageSource, CallbackInfo ci) {
-        // TODO: do logic if player died to get rid of them from the challenge hashmap and set both player challenge s
-        // TODO: broadcast who won the duel
-    }
+        // IDK if casting is the best approach, but it works... taken from:
+        // https://docs.spongepowered.org/stable/en/contributing/implementation/mixins.html#
+        var player = (ServerPlayerEntity) (Object) this;
 
+        // get rid of player from the challenges and set both player challenge states
+        var maybePair = ChallengeCommand.challenges.find(player);
+        if (maybePair.isEmpty()) return; // player was not in a duel.
+
+        var pair = maybePair.get();
+        // by default if you die first (whatever cause) the other player is the winner, maybe in the future we could
+        // change this to be only if you die by your opponent
+        var winner = player == pair.challenger() ? pair.opponent() : pair.challenger();
+        ChallengeCommand.challenges.remove(pair);
+
+        NKKKKAbilities.Abilities.PLAYER_CURRENTLY_CHALLENGING_ABILITY.setAbilityState(pair.challenger(), false);
+        NKKKKAbilities.Abilities.PLAYER_CURRENTLY_CHALLENGING_ABILITY.setAbilityState(pair.opponent(), false);
+
+        // broadcast who won the duel
+        for (var p : player.server.getPlayerManager().getPlayerList())  {
+            p.sendMessage(Text.translatable("nokillkillkillkill.command.pvp.challenge.broadcast_win", winner.getName(), player.getName()));
+        }
+
+        player.sendMessage(Text.translatable("nokillkillkillkill.command.pvp.challenge.lost", winner.getName()));
+        winner.sendMessage(Text.translatable("nokillkillkillkill.command.pvp.challenge.won", player.getName()));
+    }
 }
