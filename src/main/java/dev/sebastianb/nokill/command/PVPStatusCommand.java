@@ -5,6 +5,7 @@ import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import com.mojang.brigadier.context.CommandContext;
 import dev.sebastianb.nokill.SebaUtils;
 import dev.sebastianb.nokill.ability.NoKillAbilities;
+import me.lucko.fabric.api.permissions.v0.Permissions;
 import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -21,6 +22,7 @@ public class PVPStatusCommand implements ICommand {
     @Override
     public LiteralArgumentBuilder<ServerCommandSource> registerNode() {
         return CommandManager.literal(commandName())
+                .requires(serverCommandSource -> Permissions.check(serverCommandSource, "nokill.pvp.status"))
                 .executes(this::execute);
     }
 
@@ -46,6 +48,7 @@ public class PVPStatusCommand implements ICommand {
         @Override
         public LiteralArgumentBuilder<ServerCommandSource> registerNode() {
             return CommandManager.literal(commandName())
+                    .requires(serverCommandSource -> Permissions.check(serverCommandSource, "nokill.pvp.on"))
                     .executes(this::execute);
         }
 
@@ -75,6 +78,7 @@ public class PVPStatusCommand implements ICommand {
         @Override
         public LiteralArgumentBuilder<ServerCommandSource> registerNode() {
             return CommandManager.literal(commandName())
+                    .requires(serverCommandSource -> Permissions.check(serverCommandSource, "nokill.pvp.off"))
                     .executes(this::execute);
         }
 
