@@ -14,4 +14,11 @@ public class PlayerPairList extends ArrayList<PlayerPair> {
 
         return Optional.empty();
     }
+
+    /**
+     * Returns true if the given UUID is in any challenge currently (in playerPairs)
+     */
+    public boolean contains(ServerPlayerEntity player) {
+        return find(player).isPresent();
+    }
 }

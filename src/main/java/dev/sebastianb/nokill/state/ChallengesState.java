@@ -10,8 +10,6 @@ import net.minecraft.world.World;
 import java.util.HashMap;
 import java.util.UUID;
 import java.util.function.Consumer;
-import java.util.function.Function;
-import java.util.logging.Level;
 
 public class ChallengesState extends PersistentState {
     private static final String KEY_PLAYERS_COMPOUND = "nokill.playerStates";
