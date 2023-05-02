@@ -10,19 +10,17 @@ import java.util.ArrayList;
 
 public class NoKillCommand {
 
-    private static final ArrayList<ICommand> commands = new ArrayList<>();
+    private static final ICommand[] commands = {
+            new ChallengeCommand(),
+            new PVPStatusCommand(),
+            // new PVPStatusCommand.PVPOnCommand()
+            // new PVPStatusCommand.PVPOffCommand()
+    };
 
     private static final String[] commandLiterals = new String[]{"pvp", "p"};
 
 
     public static void register() {
-
-        commands.add(new ChallengeCommand());
-
-        commands.add(new PVPStatusCommand());
-        commands.add(new PVPStatusCommand.PVPOnCommand());
-        commands.add(new PVPStatusCommand.PVPOffCommand());
-
         CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> {
             for (ICommand command : commands) {
                 for (String literal : commandLiterals) {
@@ -34,10 +32,9 @@ public class NoKillCommand {
                 }
             }
         });
-
     }
 
-    protected static ArrayList<ICommand> getCommands() {
+    protected static ICommand[] getCommands() {
         return commands;
     }
 
