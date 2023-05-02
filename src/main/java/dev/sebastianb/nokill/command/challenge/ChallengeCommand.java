@@ -98,11 +98,12 @@ public class ChallengeCommand implements ICommand {
         var opponentName = pair.opponent().getName();
 
         ChallengeInviteTimer.playerInvites.remove(pair);
+        pair.increaseChallengeAttempts(); // add to both of their challenges attempted counts
         // sends message to each player letting them know request has been accepted.
         pair.challenger().sendMessage(Text.translatable("nokill.command.pvp.challenge.accepted_sent", opponentName));
         pair.opponent().sendMessage(Text.translatable("nokill.command.pvp.challenge.accepted_received", challengerName));
 
-        challenges.add(pair);
+        challenges.add(pair); // begin challenge
         // broadcast message to each player saying a duel has started
         // TODO: configurable if this should announce to only the players or everyone
         var server = context.getSource().getServer();

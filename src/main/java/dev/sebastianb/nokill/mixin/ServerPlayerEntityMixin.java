@@ -2,6 +2,7 @@ package dev.sebastianb.nokill.mixin;
 
 import dev.sebastianb.nokill.ability.NoKillAbilities;
 import dev.sebastianb.nokill.command.challenge.ChallengeCommand;
+import dev.sebastianb.nokill.state.ChallengesState;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -57,14 +58,15 @@ public abstract class ServerPlayerEntityMixin {
         // by default if you die first (whatever cause) the other player is the winner, maybe in the future we could
         // change this to be only if you die by your opponent
         var winner = player == pair.challenger() ? pair.opponent() : pair.challenger();
-        ChallengeCommand.challenges.remove(pair);
+        ChallengeCommand.challenges.remove(pair); // remove pair from challenges list
+        ChallengesState.doWithPlayerState(winner, playerState -> playerState.challengeWins++); // count as new win
 
         NoKillAbilities.Abilities.PLAYER_CURRENTLY_CHALLENGING_ABILITY.setAbilityState(pair.challenger(), false);
         NoKillAbilities.Abilities.PLAYER_CURRENTLY_CHALLENGING_ABILITY.setAbilityState(pair.opponent(), false);
 
         // broadcast who won the duel
         for (var p : player.server.getPlayerManager().getPlayerList())  {
-            if (pair.contains(p)) continue;
+            if (pair.contains(p)) continue; // tell everyone except winner/loser
             p.sendMessage(Text.translatable("nokill.command.pvp.challenge.broadcast_win", winner.getName(), player.getName()));
         }
 

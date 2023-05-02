@@ -7,20 +7,11 @@ import java.util.ArrayList;
 import java.util.Optional;
 
 public class PlayerPairList extends ArrayList<PlayerPair> {
-    /**
-     * Will get the pair this UUID is contained in, optional will be empty if such pair doesn't exist
-     */
+    /** @return an Optional of a PlayerPair containing the given player */
     public Optional<PlayerPair> find(ServerPlayerEntity player) {
         for (var pair : this)
             if (pair.contains(player)) return Optional.of(pair);
 
         return Optional.empty();
-    }
-
-    /**
-     * Returns true if the given UUID is in any challenge currently (in playerPairs)
-     */
-    public boolean contains(ServerPlayerEntity player) {
-        return find(player).isPresent();
     }
 }
