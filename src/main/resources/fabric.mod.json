@@ -3,10 +3,10 @@
   "id": "nokill",
   "version": "${version}",
   "name": "nokill",
-  "description": "",
+  "description": "Enables starting challenges amongst players through /pvp command",
   "authors": [],
   "contact": {
-    "repo": ""
+    "repo": "https://github.com/SebaSphere/nokill"
   },
   "license": "MIT",
   "icon": "assets/nokill/icon.png",
