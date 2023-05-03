@@ -8,6 +8,7 @@ import dev.sebastianb.nokill.SebaUtils;
 import dev.sebastianb.nokill.ability.NoKillAbilities;
 import dev.sebastianb.nokill.command.ICommand;
 import dev.sebastianb.nokill.command.challenge.pairstructs.PlayerPairList;
+import me.lucko.fabric.api.permissions.v0.Permissions;
 import net.minecraft.command.argument.EntityArgumentType;
 import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.command.ServerCommandSource;
@@ -25,6 +26,7 @@ public class ChallengeCommand implements ICommand {
     @Override
     public LiteralArgumentBuilder<ServerCommandSource> registerNode() {
         return CommandManager.literal(commandName())
+                .requires(serverCommandSource -> Permissions.check(serverCommandSource, "nokill.challenge"))
                 .then(CommandManager.argument("player", EntityArgumentType.player())
                         .executes(ChallengeCommand::challengePlayer));
     }

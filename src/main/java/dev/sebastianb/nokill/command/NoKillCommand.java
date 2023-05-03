@@ -2,6 +2,7 @@ package dev.sebastianb.nokill.command;
 
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import dev.sebastianb.nokill.command.challenge.ChallengeCommand;
+import me.lucko.fabric.api.permissions.v0.Permissions;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.command.ServerCommandSource;
@@ -24,7 +25,6 @@ public class NoKillCommand {
                 for (String literal : commandLiterals) {
                     LiteralArgumentBuilder<ServerCommandSource> builder =
                             CommandManager.literal(literal)
-                                    .requires(serverCommandSource -> serverCommandSource.hasPermissionLevel(2))
                                     .then(command.registerNode());
                     dispatcher.register(builder);
                 }
