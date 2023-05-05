@@ -111,13 +111,12 @@ public class ChallengeCommand implements ICommand {
         // TODO: configurable if this should announce to only the players or everyone
         var server = context.getSource().getServer();
 
-        // broadcast to everyone out of the challenge (since they get their own messages above)
+        setPVPStates(pair);
+        // broadcast to everyone a challenge has started
         for (var p : server.getPlayerManager().getPlayerList())  {
-            if (pair.contains(p)) continue;
             p.sendMessage(Text.translatable("nokill.command.pvp.challenge.broadcast", challengerName, opponentName));
         }
 
-        setPVPStates(pair);
     }
 
     private static void setPVPStates(PlayerPair pair) {

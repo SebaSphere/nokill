@@ -64,13 +64,14 @@ public abstract class ServerPlayerEntityMixin {
         NoKillAbilities.Abilities.PLAYER_CURRENTLY_CHALLENGING_ABILITY.setAbilityState(pair.challenger(), false);
         NoKillAbilities.Abilities.PLAYER_CURRENTLY_CHALLENGING_ABILITY.setAbilityState(pair.opponent(), false);
 
+        player.sendMessage(Text.translatable("nokill.command.pvp.challenge.lost", winner.getName()));
+        winner.sendMessage(Text.translatable("nokill.command.pvp.challenge.won", player.getName()));
+
         // broadcast who won the duel
         for (var p : player.server.getPlayerManager().getPlayerList())  {
-            if (pair.contains(p)) continue; // tell everyone except winner/loser
+            // if (pair.contains(p)) continue; // tell everyone except winner/loser
             p.sendMessage(Text.translatable("nokill.command.pvp.challenge.broadcast_win", winner.getName(), player.getName()));
         }
 
-        player.sendMessage(Text.translatable("nokill.command.pvp.challenge.lost", winner.getName()));
-        winner.sendMessage(Text.translatable("nokill.command.pvp.challenge.won", player.getName()));
     }
 }
