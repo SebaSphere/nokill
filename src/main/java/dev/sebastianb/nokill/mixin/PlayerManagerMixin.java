@@ -57,7 +57,7 @@ public abstract class PlayerManagerMixin {
         ChallengeCommand.challenges.remove(pair);
 
         // broadcast message with the player that left and who won by default
-        other.sendMessage(Text.translatable("nokill.command.pvp.challenge.other_disconnected", player.getName()));
+        other.sendMessage(Text.translatable("nokill.command.pvp.challenge.other_disconnected", player.getName().getString()));
     }
 
 }

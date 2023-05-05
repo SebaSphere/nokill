@@ -1,8 +1,11 @@
 package dev.sebastianb.nokill.mixin;
 
+import dev.sebastianb.nokill.NoKill;
 import dev.sebastianb.nokill.ability.NoKillAbilities;
 import dev.sebastianb.nokill.command.challenge.ChallengeCommand;
+import dev.sebastianb.nokill.jda.BotUtils;
 import dev.sebastianb.nokill.state.ChallengesState;
+import net.dv8tion.jda.api.EmbedBuilder;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -12,6 +15,8 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+
+import java.awt.*;
 
 @Mixin(ServerPlayerEntity.class)
 public abstract class ServerPlayerEntityMixin {
@@ -64,13 +69,21 @@ public abstract class ServerPlayerEntityMixin {
         NoKillAbilities.Abilities.PLAYER_CURRENTLY_CHALLENGING_ABILITY.setAbilityState(pair.challenger(), false);
         NoKillAbilities.Abilities.PLAYER_CURRENTLY_CHALLENGING_ABILITY.setAbilityState(pair.opponent(), false);
 
-        player.sendMessage(Text.translatable("nokill.command.pvp.challenge.lost", winner.getName()));
-        winner.sendMessage(Text.translatable("nokill.command.pvp.challenge.won", player.getName()));
+        player.sendMessage(Text.translatable("nokill.command.pvp.challenge.lost", winner.getName().getString()));
+        winner.sendMessage(Text.translatable("nokill.command.pvp.challenge.won", player.getName().getString()));
+
+        // send message to discord logs
+        EmbedBuilder builder = new EmbedBuilder()
+            .setColor(Color.GREEN)
+            .setTitle("Challenge Duel Winner Announcement")
+            .setDescription(String.format("Congratulations to **%s** for winning a fight against **%s**!", winner.getName().getString(), player.getName().getString()))
+            .setThumbnail("https://crafatar.com/renders/body/" + winner.getUuidAsString());
+        BotUtils.sendEmbeddedMessage(builder, BotUtils.getTextChannelById(NoKill.CONFIG.discord.channelID()));
 
         // broadcast who won the duel
         for (var p : player.server.getPlayerManager().getPlayerList())  {
             // if (pair.contains(p)) continue; // tell everyone except winner/loser
-            p.sendMessage(Text.translatable("nokill.command.pvp.challenge.broadcast_win", winner.getName(), player.getName()));
+            p.sendMessage(Text.translatable("nokill.command.pvp.challenge.broadcast_win", winner.getName().getString(), player.getName().getString()));
         }
 
     }

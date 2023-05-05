@@ -38,11 +38,11 @@ public final class ChallengeInviteTimer {
 
                 invite.pair.challenger().sendMessage(Text.translatable(
                         "nokill.command.pvp.challenge.invite_expired_sent",
-                        invite.pair.opponent().getName()
+                        invite.pair.opponent().getName().getString()
                 ), false);
                 invite.pair.opponent().sendMessage(Text.translatable(
                         "nokill.command.pvp.challenge.invite_expired_received",
-                        invite.pair.challenger().getName()
+                        invite.pair.challenger().getName().getString()
                 ), false);
 
                 return;

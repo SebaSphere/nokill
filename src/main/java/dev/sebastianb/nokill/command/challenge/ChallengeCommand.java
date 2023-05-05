@@ -46,7 +46,7 @@ public class ChallengeCommand implements ICommand {
                         Text.translatable("nokill.command.pvp.challenge.challenger_player_is_in_challenge")
                 );
             } else if (challenges.contains(challengedPlayer)) { // challenged player is already in a duel
-                var challengedName = challengedPlayer.getName();
+                var challengedName = challengedPlayer.getName().getString();
                 SebaUtils.ChatUtils.saySimpleMessage(
                         context,
                         Text.translatable("nokill.command.pvp.challenge.challenged_player_is_in_challenge", challengedName)
@@ -82,23 +82,23 @@ public class ChallengeCommand implements ICommand {
         }
 
         // send message to source player saying they've challenged the player.
-        SebaUtils.ChatUtils.saySimpleMessage(context, Text.translatable("nokill.command.pvp.challenge.invite_player_sent", challengedPlayer.getName()));
+        SebaUtils.ChatUtils.saySimpleMessage(context, Text.translatable("nokill.command.pvp.challenge.invite_player_sent", challengedPlayer.getName().getString()));
 
         // send message to challenged player letting them know to accept the challenge.
         // TODO: make command clickable and display a hover text with the command
         challengedPlayer.sendMessage(
-                Text.translatable("nokill.command.pvp.challenge.invite_player_received", sourcePlayer.getName(),
+                Text.translatable("nokill.command.pvp.challenge.invite_player_received", sourcePlayer.getName().getString(),
                         Text.translatable("nokill.command.pvp.challenge.invite_player_received.click_here"))
         );
         // let player know how to accept
-        challengedPlayer.sendMessage(Text.translatable("nokill.command.pvp.challenge.invite_response_info", sourcePlayer.getName()));
+        challengedPlayer.sendMessage(Text.translatable("nokill.command.pvp.challenge.invite_response_info", sourcePlayer.getName().getString()));
 
         ChallengeInviteTimer.createInvite(sourcePlayer, challengedPlayer);
     }
 
     private static void acceptChallenge(CommandContext<ServerCommandSource> context, PlayerPair pair) {
-        var challengerName = pair.challenger().getName();
-        var opponentName = pair.opponent().getName();
+        var challengerName = pair.challenger().getName().getString();
+        var opponentName = pair.opponent().getName().getString();
 
         ChallengeInviteTimer.playerInvites.remove(pair);
         pair.increaseChallengeAttempts(); // add to both of their challenges attempted counts

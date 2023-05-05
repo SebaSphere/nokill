@@ -37,13 +37,15 @@ dependencies {
 
     include(modImplementation('me.lucko:fabric-permissions-api:0.2-SNAPSHOT'))
 
-//    modImplementation "io.wispforest:owo-lib:${project.owo_version}"
-//    include "io.wispforest:owo-sentinel:${project.owo_version}"
-
+    modImplementation "io.wispforest:owo-lib:${project.owo_version}"
+    include "io.wispforest:owo-sentinel:${project.owo_version}"
     annotationProcessor compileOnly("io.wispforest:owo-lib:${project.owo_version}")
 
     modImplementation "io.github.ladysnake:PlayerAbilityLib:${pal_version}"
     include "io.github.ladysnake:PlayerAbilityLib:${pal_version}"
+
+    implementation("net.dv8tion:JDA:5.0.0-beta.9")
+    include "net.dv8tion:JDA:5.0.0-beta.9"
 
     modImplementation include("xyz.nucleoid:server-translations-api:${serverapi_version}")
 }
