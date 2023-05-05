@@ -9,7 +9,7 @@
   "nokill.command.pvp.challenge.invite_player_sent": "§l§cLe mandaste a %s §l§ca una invitacion.",
   "nokill.command.pvp.challenge.invite_player_received": "%s §l§cte ha invitado a una pelea. %s",
   "nokill.command.pvp.challenge.invite_player_received.click_here": "§l§c§n¡Apreta aqui para acceptar!",
-  "nokill.command.pvp.challenge.invite_response_info": "§l§cO, puedes responder con /pvp challenge *el nombre de ellos*",
+  "nokill.command.pvp.challenge.invite_response_info": "§l§cO, puedes responder con /pvp challenge %s",
   "nokill.command.pvp.challenge.accepted_sent": "%s §l§cha acceptado tu invitacion.",
   "nokill.command.pvp.challenge.accepted_received": "§l§cHas acceptado el desafio de %s§l§c.",
   "nokill.command.pvp.challenge.inform_of_invite_time": "§l§2Tienes %d §l§2segundos para acceptar.",

@@ -1,7 +1,6 @@
-# NoKillKillKillKill
+# NoKill
 
 This is a work-in-progress mod (feature imcomplete as of now) for Minecraft Fabric that adds the ability to enable or disable PvP, as well as allowing players to duel each other.
-
 
 # Usage
 To enable or disable PvP combat, use the command /pvp enable or /pvp disable.

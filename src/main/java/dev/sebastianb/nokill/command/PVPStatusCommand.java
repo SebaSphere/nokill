@@ -38,64 +38,64 @@ public class PVPStatusCommand implements ICommand {
         return Command.SINGLE_SUCCESS;
     }
 
-    static class PVPOnCommand implements ICommand {
-
-        @Override
-        public String commandName() {
-            return "on";
-        }
-
-        @Override
-        public LiteralArgumentBuilder<ServerCommandSource> registerNode() {
-            return CommandManager.literal(commandName())
-                    .requires(serverCommandSource -> Permissions.check(serverCommandSource, "nokill.pvp.on"))
-                    .executes(this::execute);
-        }
-
-        private int execute(CommandContext<ServerCommandSource> context) {
-            ServerPlayerEntity player = context.getSource().getPlayer();
-            boolean playerPVPStatus = NoKillAbilities.Abilities.PLAYER_PVP_STATUS_ABILITY.getAbilityState(player);
-
-            if (!playerPVPStatus) {
-                SebaUtils.ChatUtils.saySimpleMessage(context, Text.translatable("nokill.command.pvp.enabled"));
-            } else {
-                SebaUtils.ChatUtils.saySimpleMessage(context, Text.translatable("nokill.command.pvp.already_enabled"));
-            }
-
-            NoKillAbilities.Abilities.PLAYER_PVP_STATUS_ABILITY.setAbilityState(player, true);
-            return Command.SINGLE_SUCCESS;
-        }
-
-    }
-
-    static class PVPOffCommand implements ICommand {
-
-        @Override
-        public String commandName() {
-            return "off";
-        }
-
-        @Override
-        public LiteralArgumentBuilder<ServerCommandSource> registerNode() {
-            return CommandManager.literal(commandName())
-                    .requires(serverCommandSource -> Permissions.check(serverCommandSource, "nokill.pvp.off"))
-                    .executes(this::execute);
-        }
-
-        private int execute(CommandContext<ServerCommandSource> context) {
-            ServerPlayerEntity player = context.getSource().getPlayer();
-            boolean playerPVPStatus = NoKillAbilities.Abilities.PLAYER_PVP_STATUS_ABILITY.getAbilityState(player);
-
-            if (playerPVPStatus) {
-                SebaUtils.ChatUtils.saySimpleMessage(context, Text.translatable("nokill.command.pvp.disabled"));
-            } else {
-                SebaUtils.ChatUtils.saySimpleMessage(context, Text.translatable("nokill.command.pvp.already_disabled"));
-            }
-
-            NoKillAbilities.Abilities.PLAYER_PVP_STATUS_ABILITY.setAbilityState(player, false);
-            return Command.SINGLE_SUCCESS;
-        }
-
-    }
+//    static class PVPOnCommand implements ICommand {
+//
+//        @Override
+//        public String commandName() {
+//            return "on";
+//        }
+//
+//        @Override
+//        public LiteralArgumentBuilder<ServerCommandSource> registerNode() {
+//            return CommandManager.literal(commandName())
+//                    .requires(serverCommandSource -> Permissions.check(serverCommandSource, "nokill.pvp.on"))
+//                    .executes(this::execute);
+//        }
+//
+//        private int execute(CommandContext<ServerCommandSource> context) {
+//            ServerPlayerEntity player = context.getSource().getPlayer();
+//            boolean playerPVPStatus = NoKillAbilities.Abilities.PLAYER_PVP_STATUS_ABILITY.getAbilityState(player);
+//
+//            if (!playerPVPStatus) {
+//                SebaUtils.ChatUtils.saySimpleMessage(context, Text.translatable("nokill.command.pvp.enabled"));
+//            } else {
+//                SebaUtils.ChatUtils.saySimpleMessage(context, Text.translatable("nokill.command.pvp.already_enabled"));
+//            }
+//
+//            NoKillAbilities.Abilities.PLAYER_PVP_STATUS_ABILITY.setAbilityState(player, true);
+//            return Command.SINGLE_SUCCESS;
+//        }
+//
+//    }
+//
+//    static class PVPOffCommand implements ICommand {
+//
+//        @Override
+//        public String commandName() {
+//            return "off";
+//        }
+//
+//        @Override
+//        public LiteralArgumentBuilder<ServerCommandSource> registerNode() {
+//            return CommandManager.literal(commandName())
+//                    .requires(serverCommandSource -> Permissions.check(serverCommandSource, "nokill.pvp.off"))
+//                    .executes(this::execute);
+//        }
+//
+//        private int execute(CommandContext<ServerCommandSource> context) {
+//            ServerPlayerEntity player = context.getSource().getPlayer();
+//            boolean playerPVPStatus = NoKillAbilities.Abilities.PLAYER_PVP_STATUS_ABILITY.getAbilityState(player);
+//
+//            if (playerPVPStatus) {
+//                SebaUtils.ChatUtils.saySimpleMessage(context, Text.translatable("nokill.command.pvp.disabled"));
+//            } else {
+//                SebaUtils.ChatUtils.saySimpleMessage(context, Text.translatable("nokill.command.pvp.already_disabled"));
+//            }
+//
+//            NoKillAbilities.Abilities.PLAYER_PVP_STATUS_ABILITY.setAbilityState(player, false);
+//            return Command.SINGLE_SUCCESS;
+//        }
+//
+//    }
 
 }

@@ -7,11 +7,12 @@ import java.util.ArrayList;
 import java.util.Optional;
 
 public class PlayerInviteList extends ArrayList<InvitePair> {
+    /** Removes an InvitePair that contains the given pair */
     public void remove(PlayerPair pair) throws IndexOutOfBoundsException {
         for (int i = 0; i < this.size(); i++) {
             if (this.get(i).pair.equals(pair)) {
                 this.remove(i);
-                return;
+                break;
             }
         }
     }
