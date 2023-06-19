@@ -71,7 +71,8 @@ public class ChallengeCommand implements ICommand {
         if (maybePair.isPresent()) {
             var pair = maybePair.get();
 
-            if (pair.contains(sourcePlayer)) {
+            if (pair.challenger() == challengedPlayer) {
+                // player is responding to previous challenger therefore accept
                 acceptChallenge(context, pair);
             } else {
                 // either player has already challenged someone else
