@@ -41,7 +41,7 @@ public class ChallengesState extends PersistentState {
      * ChallengesState instance as dirty so the caller does not need to worry about it.
      */
     public static void doWithPlayerState(LivingEntity player, Consumer<PlayerState> func) {
-        var server = player.world.getServer();
+        var server = player.getWorld().getServer();
         if (server == null) throw new RuntimeException("Player " + player + " has no server!?");
         var serverState = getServerState(server);
 
