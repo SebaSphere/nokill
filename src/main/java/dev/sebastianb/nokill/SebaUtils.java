@@ -9,7 +9,7 @@ public class SebaUtils {
     public static class ChatUtils {
 
         public static void sayEmptyMessage(CommandContext<ServerCommandSource> context) {
-            context.getSource().sendFeedback(Text.literal(""), false);
+            context.getSource().sendFeedback(Text::empty, false);
         }
 
         public static void saySimpleMessage(CommandContext<ServerCommandSource> context, Text message) {
@@ -17,7 +17,7 @@ public class SebaUtils {
         }
 
         public static void saySimpleMessage(CommandContext<ServerCommandSource> context, Text message, boolean broadcastToOps) {
-            context.getSource().sendFeedback(message, broadcastToOps);
+            context.getSource().sendFeedback(() -> message, broadcastToOps);
         }
 
     }
