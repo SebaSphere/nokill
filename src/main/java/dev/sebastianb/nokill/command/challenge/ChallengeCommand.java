@@ -13,6 +13,8 @@ import net.minecraft.command.argument.EntityArgumentType;
 import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.text.ClickEvent;
+import net.minecraft.text.HoverEvent;
 import net.minecraft.text.Text;
 
 public class ChallengeCommand implements ICommand {
@@ -89,6 +91,14 @@ public class ChallengeCommand implements ICommand {
         challengedPlayer.sendMessage(
                 Text.translatable("nokill.command.pvp.challenge.invite_player_received", sourcePlayer.getName().getString(),
                         Text.translatable("nokill.command.pvp.challenge.invite_player_received.click_here"))
+                        .styled(style -> style.withHoverEvent(new HoverEvent(
+                                HoverEvent.Action.SHOW_TEXT,
+                                Text.literal("/pvp challenge " + sourcePlayer.getName().getString())
+                        )))
+                        .styled(style -> style.withClickEvent(new ClickEvent(
+                                ClickEvent.Action.RUN_COMMAND,
+                                "/pvp challenge " + sourcePlayer.getName().getString()
+                        )))
         );
         // let player know how to accept
         challengedPlayer.sendMessage(Text.translatable("nokill.command.pvp.challenge.invite_response_info", sourcePlayer.getName().getString()));

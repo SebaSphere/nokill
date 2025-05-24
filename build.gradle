@@ -44,8 +44,29 @@ dependencies {
     modImplementation "io.github.ladysnake:PlayerAbilityLib:${pal_version}"
     include "io.github.ladysnake:PlayerAbilityLib:${pal_version}"
 
-    implementation("net.dv8tion:JDA:5.0.0-beta.9")
-    include "net.dv8tion:JDA:5.0.0-beta.9"
+    // https://mvnrepository.com/artifact/net.dv8tion/JDA/5.0.0-beta.1
+    include(implementation("net.dv8tion:JDA:5.0.0-beta.1")) {
+        exclude module: 'opus-java'
+    }
+
+    // Dependencies for JDA v4.4.0
+    include "net.sf.trove4j:trove4j:3.0.3"
+    include 'org.slf4j:slf4j-nop:1.7.25'
+    include 'org.slf4j:slf4j-api:1.7.25'
+    include 'org.apache.commons:commons-collections4:4.1'
+    include 'com.neovisionaries:nv-websocket-client:2.14'
+    include 'com.squareup.okhttp3:okhttp:3.14.9'
+    include 'com.squareup.okio:okio:1.17.2'
+    include 'com.fasterxml.jackson.core:jackson-databind:2.10.1'
+    include 'com.fasterxml.jackson.core:jackson-annotations:2.10.1'
+    include 'com.fasterxml.jackson.core:jackson-core:2.10.1'
+    include "org.json:json:20210307"
+    include "club.minnced:discord-webhooks:0.5.8"
+
+    // emoji-java
+    include(implementation("com.vdurmont:emoji-java:5.1.1"))
+
+
 
     modImplementation include("xyz.nucleoid:server-translations-api:${serverapi_version}")
 }
